@@ -13,17 +13,19 @@ const Search = ({onSearchChange}) => {
         try {
             const response =  await fetch(`${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${inputValue}`, geoApiOptions);
             const result =  await response.json();
+            console.log(result.data[0])
             return {
                 options: await result.data.map((city)=> {
                     return {
-                        value: `${city.lalitude} ${city.longitude}`,
+                        value: `${city.latitude} ${city.longitude}`,
                         label: `${city.name}, ${city.countryCode}`,
                     };
                 }),
             }
+            
         } catch (error) {
             console.error("Error loading city options:", error);
-            return { options: [] };
+            
         }
 
     }
